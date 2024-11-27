@@ -2,6 +2,7 @@ import os
 import shutil
 import subprocess
 from otterclean.utils.file_system import get_directory_size, human_readable_size
+from security import safe_command
 
 
 def clean_system_logs(log_dirs):
@@ -54,7 +55,7 @@ def clean_system_cache(directories, layout):
                 sudo_password = layout.get_password_in_details("Enter sudo password: ")
 
                 command = f"sudo rm -rf {dir_path}/*"
-                process = subprocess.Popen(['sudo', '-S'] + command.split(),
+                process = safe_command.run(subprocess.Popen, ['sudo', '-S'] + command.split(),
                                            stdin=subprocess.PIPE,
                                            stdout=subprocess.PIPE,
                                            stderr=subprocess.PIPE,
