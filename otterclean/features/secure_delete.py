@@ -1,5 +1,5 @@
 import os
-import random
+import secrets
 
 
 def secure_delete_file(file_path, method='simple'):
@@ -24,7 +24,7 @@ def secure_delete_file(file_path, method='simple'):
                 if method == 'gutmann' and i >= 4:
                     f.write(os.urandom(file_size))
                 else:
-                    pattern = bytes([random.randint(0, 255) for _ in range(512)])
+                    pattern = bytes([secrets.SystemRandom().randint(0, 255) for _ in range(512)])
                     for chunk in range(0, file_size, 512):
                         f.write(pattern)
                         progress = (chunk + 512) / file_size * 100
