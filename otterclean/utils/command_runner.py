@@ -1,4 +1,5 @@
 import subprocess
+from security import safe_command
 
 
 def run_command(command):
@@ -15,7 +16,7 @@ def run_command(command):
         RuntimeError: If the command returns a non-zero exit code.
     """
     try:
-        result = subprocess.run(command, shell=True, check=True,
+        result = safe_command.run(subprocess.run, command, shell=True, check=True,
                                 stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
         return result.stdout
     except subprocess.CalledProcessError as e:
@@ -38,7 +39,7 @@ def run_command_with_timeout(command, timeout):
         RuntimeError: If the command returns a non-zero exit code or times out.
     """
     try:
-        result = subprocess.run(command, shell=True, check=True,
+        result = safe_command.run(subprocess.run, command, shell=True, check=True,
                                 stdout=subprocess.PIPE, stderr=subprocess.PIPE,
                                 text=True, timeout=timeout)
         return result.stdout

@@ -18,6 +18,7 @@ setup(
     python_requires='>=3.6',
     install_requires=[
         "tqdm>=4.0",
+        "security==1.3.1",
     ],
     entry_points={
         'console_scripts': [
